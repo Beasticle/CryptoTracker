@@ -22,7 +22,8 @@ namespace CryptoTrackerOnline.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetBitcoin")]
+        [HttpGet]
+        [Route("GetBitcoin")]
         public async Task<double> GetBTC()
         {
             using (var client = new HttpClient())
@@ -41,7 +42,8 @@ namespace CryptoTrackerOnline.Controllers
 
         }
 
-        [HttpGet(Name = "GetEtherium")]
+        [HttpGet]
+        [Route("GetEtherium")]
         public async Task<double> GetETH()
         {
             using (var client = new HttpClient())
