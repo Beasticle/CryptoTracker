@@ -1,4 +1,3 @@
 sudo docker build . -f CryptoTrackerOnline/Dockerfile --tag julianh04/cryptocontainer
 sudo docker push julian04/cryptocontainer
-az webapp config container set --docker-custom-image-name {repo}/{container}:{tag}
-
+az webapp config container set --docker-custom-image-name julianh04/cryptocontainer --resource-group CryptoGroup1 --name CryptoWebApp1
