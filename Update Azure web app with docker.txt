@@ -1,0 +1,4 @@
+sudo docker build . -f CryptoTrackerOnline/Dockerfile --tag julianh04/cryptocontainer
+sudo docker push julian04/cryptocontainer
+az webapp config container set --docker-custom-image-name {repo}/{container}:{tag}
+
