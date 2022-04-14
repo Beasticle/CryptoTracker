@@ -36,29 +36,9 @@ namespace CryptoTrackerOnline.Controllers
 
                 HttpResponseMessage bitcoin = await client.GetAsync($"data/price?fsym={tickerSymbol}&tsyms=USD");
 
-                var BTCPrice = await bitcoin.Content.ReadAsAsync<CryptoCoin>();
+                var Coin = await bitcoin.Content.ReadAsAsync<CryptoCoin>();
 
-                return BTCPrice.USD;
-            }
-
-        }
-
-        [HttpGet]
-        [Route("GetEtherium")]
-        public async Task<double> GetETH()
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(url);
-                client.DefaultRequestHeaders.Accept.Clear();
-
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage bitcoin = await client.GetAsync("data/price?fsym=ETH&tsyms=USD");
-
-                var BTCPrice = await bitcoin.Content.ReadAsAsync<CryptoCoin>();
-
-                return BTCPrice.USD;
+                return Coin.PRICE;
             }
 
         }
