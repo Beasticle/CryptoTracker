@@ -22,8 +22,8 @@ namespace CryptoTrackerOnline.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetBitCoin")]
-        public async Task<double> Get()
+        [HttpGet(Name = "GetBitcoin")]
+        public async Task<double> GetBTC()
         {
             using (var client = new HttpClient())
             {
@@ -39,22 +39,25 @@ namespace CryptoTrackerOnline.Controllers
                 return BTCPrice.USD;
             }
 
-        //[HttpGet(Name = "GetCryptoData")]
-        //public async Task<IActionResult> GetCrypto()
-        //{
-          //  using (var client = new HttpClient())
-            //{
-              //  client.BaseAddress = new Uri(url);
-                //client.DefaultRequestHeaders.Accept.Clear();
+        }
 
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        [HttpGet(Name = "GetEtherium")]
+        public async Task<double> GetETH()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Clear();
 
-                //HttpResponseMessage bitcoin = await client.GetAsync("data/price?fsym=BTC&tsyms=USD");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //var BTCPrice = await bitcoin.Content.ReadAsAsync<CryptoCoin>();
+                HttpResponseMessage bitcoin = await client.GetAsync("data/price?fsym=ETH&tsyms=USD");
 
-                //return BTCPrice.price;
-            //}
+                var BTCPrice = await bitcoin.Content.ReadAsAsync<CryptoCoin>();
+
+                return BTCPrice.USD;
+            }
+
         }
     }
 }
