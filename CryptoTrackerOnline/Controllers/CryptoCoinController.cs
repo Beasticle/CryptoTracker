@@ -22,7 +22,7 @@ namespace CryptoTrackerOnline.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetCryptoCoin")]
+        [HttpGet(Name = "GetBitCoin")]
         public async Task<double> Get()
         {
             using (var client = new HttpClient())
