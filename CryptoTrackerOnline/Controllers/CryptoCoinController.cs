@@ -22,10 +22,11 @@ namespace CryptoTrackerOnline.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        [Route("GetBitcoin")]
-        public async Task<double> GetBTC()
+        [HttpGet("{tickerSymbol}")]
+        //[Route("GetBitcoin")]
+        public async Task<double> GetCoins(string tickerSymbol)
         {
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
@@ -33,7 +34,7 @@ namespace CryptoTrackerOnline.Controllers
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage bitcoin = await client.GetAsync("data/price?fsym=BTC&tsyms=USD");
+                HttpResponseMessage bitcoin = await client.GetAsync($"data/price?fsym={tickerSymbol}&tsyms=USD");
 
                 var BTCPrice = await bitcoin.Content.ReadAsAsync<CryptoCoin>();
 
