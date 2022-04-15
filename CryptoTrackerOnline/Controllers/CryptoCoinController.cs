@@ -1,12 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using System.Net.Http.Json;
+using System.Dynamic;
+using Newtonsoft.Json.Converters;
 
 namespace CryptoTrackerOnline.Controllers
 {
+    public class CryptoCoins : CryptoCoin 
+    { 
+        public string tickerSymbol { get; set; }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class CryptoCoinController : ControllerBase
@@ -24,9 +32,8 @@ namespace CryptoTrackerOnline.Controllers
 
         [HttpGet("{tickerSymbol}")]
         //[Route("GetBitcoin")]
-        public async Task<double> GetCoins(string tickerSymbol)
+        public async Task<ExpandoObject> GetCoins(string tickerSymbol)
         {
-
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(url);
@@ -34,11 +41,13 @@ namespace CryptoTrackerOnline.Controllers
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage bitcoin = await client.GetAsync($"data/price?fsym={tickerSymbol}&tsyms=USD");
+                HttpResponseMessage crypto = await client.GetAsync($"data/pricemultifull?fsyms={tickerSymbol}&tsyms=USD{keyURL}");
+                
+                var Coin = await crypto.Content.ReadAsStringAsync();
+                var converter = new ExpandoObjectConverter();
+                dynamic content = JsonConvert.DeserializeObject<ExpandoObject>(Coin, converter);
+                return content.DISPLAY;
 
-                var Coin = await bitcoin.Content.ReadAsAsync<CryptoCoin>();
-
-                return Coin.PRICE;
             }
 
         }
