@@ -19,8 +19,6 @@ namespace CryptoTrackerOnline.Controllers
     public class CryptoCoinController : ControllerBase
     {
         private const string url = "https://min-api.cryptocompare.com/";
-        private const string key = "9e0402eade5c5f4d7e1e0b413c719f265b6e41ca492140e5a832ed612c4b3271";
-        private static string keyURL = $"&api_key={key}";
 
         private readonly ILogger<CryptoCoinController> _logger;
 
@@ -40,7 +38,7 @@ namespace CryptoTrackerOnline.Controllers
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage crypto = await client.GetAsync($"data/pricemultifull?fsyms={tickerSymbol}&tsyms=USD{keyURL}");
+                HttpResponseMessage crypto = await client.GetAsync($"data/pricemultifull?fsyms={tickerSymbol}&tsyms=USD");
 
                 CryptoCoin coin1 = new CryptoCoin();
 
