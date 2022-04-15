@@ -5,13 +5,11 @@ namespace CryptoTrackerOnline
 {
     public class CryptoCoin
     {
-        public object USD { get; set; }
+        public string NAME { get; set; }
         [DataType(DataType.Currency)]
-        public double PRICE { get; set; }
-        public double SUPPLY { get; set; }
-        public double MKTCAP { get; set; } 
-       
-        //public double totalPossible { get; set; }
+        public string PRICE { get; set; }
+        public string SUPPLY { get; set; }
+        public string MKTCAP { get; set; } 
 
     }
 }
